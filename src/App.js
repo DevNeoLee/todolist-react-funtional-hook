@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import TodoItem from './TodoItem';
 import './App.css';
 import { v4 } from 'uuid';
@@ -8,6 +8,19 @@ function App() {
   const [ todo , setTodo ] = useState('');
 
   const [ todolist, setTodolist ] = useState([]);
+
+  const localstorage_todos = "todolist";
+
+  useEffect(() => {
+    const storageTodos = JSON.parse(localStorage.getItem(localstorage_todos));
+    if (storageTodos) {
+      setTodolist(storageTodos);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(localstorage_todos, JSON.stringify(todolist))
+  }, [todolist]);
 
   const changeTodo = function(e) {
     setTodo(e.target.value)
