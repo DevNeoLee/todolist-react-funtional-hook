@@ -18,7 +18,6 @@ function App() {
     if (todo.trim() === '' ) return;
     let newTodo = { content: todo, key: v4() , completed: false}
     setTodolist([...todolist, newTodo]);
-    e.target.childNodes[0].value = "";
     setTodo("");
   }
 
@@ -27,11 +26,7 @@ function App() {
   }
 
   const completed = function(key) { 
-    // const newlist = todolist.map((todo) => {
-    //   if (todo.key === key) {
-    //     todo.completed = !todo.completed;
-    //   }
-    // });
+
     setTodolist(todolist.map(todo => 
       todo.key === key ? {...todo, completed : !todo.completed} : todo));
       //  if (todo.key === key) {
@@ -44,22 +39,12 @@ function App() {
       
   }
 
-  // completed(key) {
-  //   const newTodos = this.state.todos;
-  //   newTodos.forEach((todo) => {
-  //     if (todo.key === key) {
-  //       todo.completed = !todo.completed;
-  //     }
-  //   });
-  //   this.setState({ todos: newTodos });
-  // }
-
   return (
     <div className="App">
       <h1>todo list</h1>
       <form onSubmit={ addTodo }>
-        <input type="text" onChange={ changeTodo } placeholder="pls write todo"/>
-        <input type="submit"/>
+        <input type="text" onChange={ changeTodo } value={ todo} placeholder="pls write todo"/>
+        <button>submit</button>
       </form>
 
       <p>list</p>
